@@ -16,6 +16,7 @@ ANSWER: Yes. Inside the plv8 trigger function below, interperates NEW like this:
 --     c chunk UNIQUE NOT NULL,
 --     name text
 -- );
+--ALTER TABLE named_chunks ADD CHECK ((c).cx IS NOT NULL AND (c).cy IS NOT NULL);
 
 -- CREATE OR REPLACE FUNCTION on_chunk_mod() RETURNS trigger AS $ocm$
 -- plv8.elog(WARNING, JSON.stringify(NEW));
@@ -29,4 +30,6 @@ ANSWER: Yes. Inside the plv8 trigger function below, interperates NEW like this:
 
 
 -- INSERT INTO named_chunks (c, name) VALUES (('alpha', 0, 0), 'bob');
-UPDATE named_chunks SET name='alice' WHERE name='bob';
+-- UPDATE named_chunks SET name='alice' WHERE name='bob';
+
+-- INSERT INTO named_chunks (c.cx, c.cy, name) VALUES (10, 0, 'thomas');
